@@ -10,6 +10,7 @@ const Template1 = () => {
         <div className="absolute top-0 w-full h-screen bg-gradient-to-b from-[#D9D9D900] to-[#A6B37D]"></div>
         <div className="absolute bottom-48 w-full px-8 font">
           <p className={DearMother.className}>Wedding Invitation</p>
+          <p></p>
         </div>
       </div>
     </>
