@@ -38,7 +38,7 @@ const Template1 = () => {
       </div>
 
       {/* Surrah section */}
-      <div className="bg-[#A6B37D] w-full">
+      <div className="bg-[#A6B37D] w-full my-5">
         <Surrah surrah="arrum21" />
       </div>
     </>
