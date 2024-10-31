@@ -8,6 +8,7 @@ import React from "react";
 const Template1 = () => {
   return (
     <>
+      {/* Banner Section */}
       <div className="relative w-full h-screen">
         <HeroBanner />
         <div className="absolute top-0 w-full h-full bg-gradient-to-b from-[#D9D9D900] to-[#A6B37D]"></div>
@@ -35,6 +36,8 @@ const Template1 = () => {
           </div>
         </div>
       </div>
+
+      {/* Surrah section */}
       <div className="bg-[#A6B37D] w-full">
         <Surrah surrah="arrum21" />
       </div>
