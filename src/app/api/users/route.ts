@@ -1,32 +1,37 @@
-// pages/api/users/index.ts
-// import type { NextApiRequest, NextApiResponse } from "next";
-import bcrypt from "bcrypt";
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "../../../../lib/prisma";
-import { UserBody } from "./Types.users";
+import { getUsers } from "@/services/user/getUsers";
+import { createUser } from "@/services/user/createUser";
+import { PostUsersBody } from "@/types/user/Types.users";
 
 export async function GET(req: NextRequest) {
-  if (req.method === "GET") {
-    const user = await prisma.user.findMany();
-    return NextResponse.json(user, { status: 200 });
+  const { searchParams } = new URL(req.url);
+  try {
+    const result = await getUsers(searchParams);
+    return NextResponse.json(result, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(error, { status: 500 });
   }
-  return NextResponse.json({ message: "Method not allowed" }, { status: 405 });
 }
 
 export async function POST(req: NextRequest) {
+  const body: PostUsersBody = await req.json();
+  if (!body.name) {
+    return NextResponse.json({ message: "Name is required" }, { status: 400 });
+  }
+  if (!body.email) {
+    return NextResponse.json({ message: "Email is required" }, { status: 400 });
+  }
+  if (!body.password) {
+    return NextResponse.json(
+      { message: "Password is required" },
+      { status: 400 }
+    );
+  }
   try {
-    const body: UserBody = await req.json(); // ⬅️ Ambil body dari request
-    const { name, email, password } = body;
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = await prisma.user.create({
-      data: { name, email, password: hashedPassword },
-    });
-
-    return Response.json(user, { status: 201 }); // ⬅️ Ganti res.status().json() dengan Response.json()
+    const user = createUser(body);
+    return Response.json({ user }, { status: 201 }); // ⬅️ Ganti res.status().json() dengan Response.json()
   } catch (error) {
     console.error("[POST USER ERROR]", error);
-    return new Response("Failed to create user", { status: 500 });
+    return NextResponse.json("Failed to create user", { status: 500 });
   }
 }

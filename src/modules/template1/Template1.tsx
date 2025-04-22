@@ -1,4 +1,4 @@
-import { DearMother, LTRemark } from "@/app/fonts/Fonts";
+import { DearMother, LTRemark } from "@/fonts/Fonts";
 import HeroBanner from "@/components/atoms/HeroBanner.atom";
 import Surrah from "@/components/atoms/Surrah.atom";
 import clsx from "clsx";

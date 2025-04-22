@@ -1,4 +1,4 @@
-import { Cinzel, LTRemark } from "@/app/fonts/Fonts";
+import { Cinzel, LTRemark } from "@/fonts/Fonts";
 import clsx from "clsx";
 import React from "react";
 
