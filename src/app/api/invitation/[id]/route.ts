@@ -5,9 +5,9 @@ import { getInvitation } from "@/services/invitation/getInvitation";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
-  const { id } = params;
+  const { id } = context.params;
   try {
     const result = await getInvitation(id);
     return NextResponse.json(result, { status: 200 });
