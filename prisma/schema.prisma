@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String       @id @default(uuid())
+  email       String       @unique
+  name        String
+  password    String
+  invitations Invitation[]
+}
+
+model Invitation {
+  id        String   @id @default(uuid())
+  slug      String   @unique
+  groomName String
+  brideName String
+  date      DateTime
+  venue     String
+  template  String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  rsvps     RSVP[]
+  media     Media[]
+}
+
+model RSVP {
+  id           String     @id @default(uuid())
+  invitationId String
+  name         String
+  message      String
+  willAttend   Boolean
+  createdAt    DateTime   @default(now())
+  invitation   Invitation @relation(fields: [invitationId], references: [id])
+}
+
+model Media {
+  id           String      @id @default(cuid())
+  url          String // URL or file path
+  type         String // e.g. 'image', 'video'
+  description  String? // optional description
+  createdAt    DateTime    @default(now())
+  invitation   Invitation? @relation(fields: [invitationId], references: [id]) // Optional relation
+  invitationId String? // Optional scalar field
+}

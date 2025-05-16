@@ -9,7 +9,7 @@ const HeroBanner = () => {
         alt="wedding-invitation"
         width={500}
         height={500}
-        className="w-full"
+        className="w-full h-screen"
       />
     </>
   );
