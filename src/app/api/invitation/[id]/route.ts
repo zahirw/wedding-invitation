@@ -2,12 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { getInvitation } from "@/services/invitation/getInvitation";
 // import { createInvitation } from "@/services/invitation/createInvitation";
 // import { PostInvitationsBody } from "@/types/invitation/Types.invitations";
+type Params = Promise<{ id: string }>;
 
-export async function GET(
-  req: NextRequest,
-  context: { params: { id: string } }
-) {
-  const { id } = context.params;
+export async function GET(req: NextRequest, segmentData: { params: Params }) {
+  const params = await segmentData.params;
+  const { id } = params;
   try {
     const result = await getInvitation(id);
     return NextResponse.json(result, { status: 200 });

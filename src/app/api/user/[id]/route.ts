@@ -4,11 +4,13 @@ import { User } from "@/types/user/Types.users";
 // import { createUser } from "@/services/user/createUser";
 // import { PostUsersBody } from "@/types/user/Types.users";
 
+type Params = Promise<{ id: string }>;
 export async function GET(
   req: NextRequest,
-  context: { params: { id: string } }
+  segmentData: { params: Params }
 ): Promise<NextResponse<{ data: User } | { message: string }>> {
-  const { id } = context.params;
+  const params = await segmentData.params;
+  const { id } = params;
   try {
     const result = await getUser(id);
     return NextResponse.json(result, { status: 200 });
