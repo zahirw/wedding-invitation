@@ -14,17 +14,23 @@ import { uploadMedia } from "@/services/storage/uploadMedia";
 // }
 
 export async function POST(req: NextRequest) {
-  const blob = await req.blob();
-  const file = new File([blob], "uploadedFile"); // Create a File object from the Blob
-  const body: PostStorageBody = { file }; // Construct the PostStorageBody object
-  if (!body.file) {
+  const formData = await req.formData();
+  const file = formData.get("file") as File;
+  console.log("file", file);
+  const body: PostStorageBody = {
+    file: file,
+  };
+  if (!body) {
     return NextResponse.json({ message: "File is required" }, { status: 400 });
   }
   try {
-    const storage = uploadMedia(body);
-    return Response.json({ storage }, { status: 201 }); // ⬅️ Ganti res.status().json() dengan Response.json()
+    const result = await uploadMedia(body); // Pass the FormData directly
+    return NextResponse.json(result, { status: 201 });
   } catch (error) {
-    console.error("[POST USER ERROR]", error);
-    return NextResponse.json("Failed to create user", { status: 500 });
+    console.error("[POST STORAGE ERROR]", error);
+    return NextResponse.json(
+      { message: "Failed to upload file" },
+      { status: 500 }
+    );
   }
 }

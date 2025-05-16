@@ -36,6 +36,7 @@ export const uploadMedia = async (
       data: {
         status: "success",
         message: "File uploaded successfully",
+        url: publicUrl,
       },
     };
   } catch (error) {
