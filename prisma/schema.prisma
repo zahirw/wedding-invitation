@@ -26,6 +26,7 @@ model Invitation {
   userId    String
   user      User     @relation(fields: [userId], references: [id])
   rsvps     RSVP[]
+  media     Media[]
 }
 
 model RSVP {
@@ -36,4 +37,14 @@ model RSVP {
   willAttend   Boolean
   createdAt    DateTime   @default(now())
   invitation   Invitation @relation(fields: [invitationId], references: [id])
+}
+
+model Media {
+  id           String      @id @default(cuid())
+  url          String // URL or file path
+  type         String // e.g. 'image', 'video'
+  description  String? // optional description
+  createdAt    DateTime    @default(now())
+  invitation   Invitation? @relation(fields: [invitationId], references: [id]) // Optional relation
+  invitationId String? // Optional scalar field
 }

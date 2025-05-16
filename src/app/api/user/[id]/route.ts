@@ -1,18 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getUser } from "@/services/user/getUser";
+import { User } from "@/types/user/Types.users";
 // import { createUser } from "@/services/user/createUser";
 // import { PostUsersBody } from "@/types/user/Types.users";
 
 export async function GET(
   req: NextRequest,
   context: { params: { id: string } }
-) {
+): Promise<NextResponse<{ data: User } | { message: string }>> {
   const { id } = context.params;
   try {
     const result = await getUser(id);
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
-    return NextResponse.json(error, { status: 500 });
+    return NextResponse.json(
+      { message: (error as Error).message || "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
 
