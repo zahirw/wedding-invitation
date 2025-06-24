@@ -10,20 +10,65 @@ datasource db {
 model User {
   id          String       @id @default(uuid())
   email       String       @unique
+  emailVerified DateTime?  @map("email_verified")
   name        String
-  password    String
+  password    String?
+  image         String?
   invitations Invitation[]
+  accounts    Account[]
+  sessions    Session[] 
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt     
+}
+
+model Account {
+  userId              String  @map("user_id")
+  type                String
+  provider            String
+  providerAccountId   String
+  refresh_token       String? @db.Text @map("refresh_token")
+  access_token        String? @db.Text @map("access_token")
+  expires_at          Int?     @map("expires_at")
+  token_type          String?  @map("token_type")
+  scope               String?
+  id_token            String? @db.Text @map("id_token")
+  session_state       String? @map("session_state")
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+ 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique @map("session_token")
+  userId       String @map("user_id")
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  createdAt DateTime @default(now()) 
+  updatedAt DateTime @updatedAt
+}
+ 
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+ 
+  @@id([identifier, token])
 }
 
 model Invitation {
   id        String   @id @default(uuid())
   slug      String   @unique
-  groomName String
-  brideName String
+  groomName String @map("groom_name")
+  brideName String @map("bride_name")
   date      DateTime
   venue     String
   template  String
-  userId    String
+  userId    String @map("user_id")
   user      User     @relation(fields: [userId], references: [id])
   rsvps     RSVP[]
   media     Media[]
