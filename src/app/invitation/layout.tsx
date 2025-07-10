@@ -1,5 +1,5 @@
 import React from "react";
-import ReactLenis from "lenis/react";
+import SmoothScroll from "@/utils/SmoothScroll";
 
 const page = ({
   children,
@@ -8,8 +8,11 @@ const page = ({
 }>) => {
   return (
     <>
-      <div className="w-full h-auto">
-        <ReactLenis root>{children}</ReactLenis>
+      <div id="smooth-wrapper">
+        <div id="smooth-content">
+          <SmoothScroll />
+          {children}
+        </div>
       </div>
     </>
   );

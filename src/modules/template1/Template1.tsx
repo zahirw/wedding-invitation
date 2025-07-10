@@ -4,14 +4,17 @@ import Surrah from "@/components/atoms/Surrah.atom";
 import clsx from "clsx";
 import { format, getDate, getMonth } from "date-fns";
 import React from "react";
+import MiniGallery from "@/components/atoms/MiniGallery.atom";
+import CounterTime from "@/components/atoms/CounterTime.atom";
+import BrideGroom from "@/components/molecules/BrideGroom.molecule";
 
 const Template1 = () => {
   return (
     <>
       {/* Banner Section */}
-      <div className="relative w-full h-screen">
+      <section className="relative w-full h-screen">
         <HeroBanner />
-        <div className="absolute top-0 w-full h-full bg-gradient-to-b from-[#D9D9D900] to-[#A6B37D]"></div>
+        <div className="absolute top-0 w-full h-full bg-gradient-to-b from-transparent to-[#A6B37D]"></div>
         <div className="absolute bottom-20 w-full px-8 font">
           <p className={clsx(DearMother.className, "text-4xl text-[#FEFAE0]")}>
             Wedding Invitation
@@ -35,12 +38,23 @@ const Template1 = () => {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Surrah section */}
-      <div className="bg-[#A6B37D] w-full">
+      <section className="bg-[#A6B37D] w-full py-10">
         <Surrah surrah="arrum21" />
-      </div>
+      </section>
+
+      {/* Counter time Section */}
+      <section className="w-full bg-gradient-to-b from-[#A6B37D] to-[#FEFAE0] py-10">
+        <MiniGallery />
+        <CounterTime />
+      </section>
+
+      {/* Bride & Groom Section */}
+      <section className="w-full bg-gradient-to-b from-[#FEFAE0] to-[#B99470] to-20%">
+        <BrideGroom />
+      </section>
     </>
   );
 };
