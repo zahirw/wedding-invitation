@@ -7,6 +7,7 @@ import React from "react";
 import MiniGallery from "@/components/atoms/MiniGallery.atom";
 import CounterTime from "@/components/atoms/CounterTime.atom";
 import BrideGroom from "@/components/molecules/BrideGroom.molecule";
+import Rsvp from "@/components/molecules/Rsvp.molecule";
 
 const Template1 = () => {
   return (
@@ -54,6 +55,11 @@ const Template1 = () => {
       {/* Bride & Groom Section */}
       <section className="w-full bg-gradient-to-b from-[#FEFAE0] to-[#B99470] to-20%">
         <BrideGroom />
+      </section>
+
+      {/* RSVP section */}
+      <section className="bg-[#A6B37D] w-full py-20">
+        <Rsvp />
       </section>
     </>
   );
