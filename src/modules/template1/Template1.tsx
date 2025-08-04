@@ -1,13 +1,15 @@
 import { DearMother, LTRemark } from "@/fonts/Fonts";
-import HeroBanner from "@/components/atoms/HeroBanner.atom";
-import Surrah from "@/components/atoms/Surrah.atom";
+import HeroBanner from "@/modules/template1/section/HeroBanner.atom";
+import Surrah from "@/modules/template1/section/Surrah.atom";
 import clsx from "clsx";
 import { format, getDate, getMonth } from "date-fns";
 import React from "react";
-import MiniGallery from "@/components/atoms/MiniGallery.atom";
-import CounterTime from "@/components/atoms/CounterTime.atom";
-import BrideGroom from "@/components/molecules/BrideGroom.molecule";
-import Rsvp from "@/components/molecules/Rsvp.molecule";
+import MiniGallery from "@/modules/template1/section/MiniGallery.atom";
+import CounterTime from "@/modules/template1/section/CounterTime.atom";
+import BrideGroom from "@/modules/template1/section/BrideGroom.molecule";
+import Rsvp from "@/modules/template1/section/Rsvp.molecule";
+import DateLocation from "./section/DateLocation.section";
+import ScheduleTime from "./section/ScheduleTime.section";
 
 const Template1 = () => {
   return (
@@ -52,6 +54,11 @@ const Template1 = () => {
         <CounterTime />
       </section>
 
+      {/* Date Location Section */}
+      <section className="w-full bg-[#FEFAE0] py-10">
+        <DateLocation />
+      </section>
+
       {/* Bride & Groom Section */}
       <section className="w-full bg-gradient-to-b from-[#FEFAE0] to-[#B99470] to-20%">
         <BrideGroom />
@@ -60,6 +67,11 @@ const Template1 = () => {
       {/* RSVP section */}
       <section className="bg-[#A6B37D] w-full py-20">
         <Rsvp />
+      </section>
+
+      {/* Schedule time */}
+      <section className="bg-[#A6B37D] w-full py-20">
+        <ScheduleTime />
       </section>
     </>
   );

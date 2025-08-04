@@ -2,7 +2,7 @@ import { Cinzel } from "@/fonts/Fonts";
 import { cn } from "@/utils/cn";
 import Image from "next/image";
 import React from "react";
-import InputComponent from "../atoms/Input.atom";
+import InputComponent from "../../../components/atoms/Input.atom";
 
 const Rsvp = () => {
   return (
